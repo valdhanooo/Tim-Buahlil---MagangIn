@@ -28,10 +28,10 @@
     <div class="w-full lg:w-[60%] flex flex-col justify-center items-center relative p-6 sm:p-8 bg-[#F1F3F5]">
         
         <div class="absolute top-6 right-6 lg:top-8 lg:right-10 z-20">
-            <a href="{{ url('/') }}" class="inline-flex items-center px-4 py-2.5 text-sm font-semibold text-gray-500 bg-white border border-gray-200 rounded-xl hover:text-[#10367D] hover:border-[#10367D] transition shadow-sm">
+            <!-- <a href="{{ url('/') }}" class="inline-flex items-center px-4 py-2.5 text-sm font-semibold text-gray-500 bg-white border border-gray-200 rounded-xl hover:text-[#10367D] hover:border-[#10367D] transition shadow-sm">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                 Beranda
-            </a>
+            </a> -->
         </div>
 
         <div class="w-full max-w-sm mt-8">

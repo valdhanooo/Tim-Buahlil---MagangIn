@@ -120,19 +120,29 @@ Route::get('/lowongan', function (Request $request) {
 
 Route::middleware('auth')->group(function () {
     
+    // Halaman Detail Lowongan
     Route::get('/lowongan/{id}', function ($id) {
         $job = getDummyLowongan()->firstWhere('id', (int)$id);
         if (!$job) abort(404);
         return view('detail', ['job' => $job]);
     })->name('lowongan.detail');
 
+    // MUNCULKAN HALAMAN FORM LAMARAN
+    Route::get('/lowongan/{id}/lamar', function ($id) {
+        $job = getDummyLowongan()->firstWhere('id', (int)$id);
+        if (!$job) abort(404);
+        return view('lamar', ['job' => $job]);
+    })->name('lowongan.lamar');
+
+    // PROSES SUBMIT LAMARAN
+    Route::post('/lowongan/{id}/lamar', function ($id) { 
+        // Setelah submit, arahkan ke dashboard dengan pesan sukses
+        return redirect()->route('dashboard')->with('success', 'Lamaran berhasil dikirim!'); 
+    })->name('lamar.submit');
+
     Route::get('/dashboard', function () { 
         return view('dashboard'); 
     })->name('dashboard');
-    
-    Route::post('/lamar/{id}', function ($id) { 
-        return redirect()->back()->with('success', 'Lamaran berhasil dikirim!'); 
-    })->name('lamar.submit');
 
 });
 

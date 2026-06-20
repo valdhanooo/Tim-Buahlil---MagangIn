@@ -115,7 +115,7 @@
             <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 w-full text-center">
                 <h3 class="font-bold text-xl mb-6 tracking-tight" style="color: #10367D;">Tertarik dengan posisi ini ?</h3>
                 
-                <a href="#" onclick="alert('Selamat! Lamaran Anda berhasil terkirim via Satu Kali Klik Melamar MagangIn.')"
+                <a href="{{ route('lowongan.lamar', ['id' => $job['id']]) }}" 
                     class="w-full text-white font-bold py-3.5 px-4 rounded-xl transition hover:opacity-90 mb-4 shadow-sm block text-center"
                     style="background-color: #7EB6D9; font-size: 15px;">
                         Lamar Sekarang
@@ -165,9 +165,9 @@
                     <label class="block text-xs font-bold text-[#10367D] mb-1.5">Pilih Dosen *</label>
                     <select class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-[#10367D] focus:border-[#10367D]" required>
                         <option value="">-- Pilih Dosen Pembimbing --</option>
-                        <option value="dosen1">Dr. Budi Susanto, M.Kom</option>
-                        <option value="dosen2">Siti Aminah, S.Kom., M.T.</option>
-                        <option value="dosen3">Ahmad Reza, Ph.D</option>
+                        <option value="dosen1">Dosen 1</option>
+                        <option value="dosen2">Dosen 2</option>
+                        <option value="dosen3">Dosen 3</option>
                     </select>
                 </div>
                 <div>

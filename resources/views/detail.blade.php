@@ -121,12 +121,12 @@
                         Lamar Sekarang
                 </a>
 
-                <a href="#" onclick="alert('Sukses! Draf rekomendasi telah dikirim ke Dosen Pembimbing Anda.')"
-                    class="w-full text-white font-semibold py-3.5 px-4 rounded-xl transition hover:opacity-90 flex flex-col items-center justify-center leading-tight text-sm shadow-sm"
+                <button onclick="openModal()"
+                    class="w-full text-white font-semibold py-3.5 px-4 rounded-xl transition hover:opacity-90 flex flex-col items-center justify-center leading-tight text-sm shadow-sm cursor-pointer"
                     style="background-color: #8A9EB8;">
                         <span>Kirim ke Dosen untuk</span>
                         <span class="mt-0.5">Rekomendasi</span>
-                </a>
+                </button>
                 
                 <p class="text-xs text-gray-500 leading-relaxed mt-6 px-1">
                     Tips: Dapatkan rekomendasi dari dosen pembimbing untuk meningkatkan peluang kamu diterima.
@@ -136,4 +136,93 @@
 
     </div>
 </div>
+
+<div id="rekomendasiModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-[#0F172A] bg-opacity-60 backdrop-blur-sm transition-opacity">
+    
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all mx-4">
+        
+        <div class="bg-[#10367D] px-6 py-4 flex justify-between items-start text-white">
+            <div>
+                <h3 class="font-bold text-lg leading-tight">Minta Rekomendasi ke Dosen</h3>
+                <p class="text-[11px] text-blue-200 mt-1">{{ $job['posisi'] }} - {{ $job['perusahaan'] }}</p>
+            </div>
+            <button onclick="closeModal()" class="text-white hover:text-gray-300 transition mt-1">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+
+        <div id="modalFormState">
+            <form onsubmit="submitRekomendasi(event)" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-[#10367D] mb-1.5">Nama Mahasiswa *</label>
+                    <input type="text" value="{{ Auth::user()->name ?? '' }}" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#10367D] focus:border-[#10367D]" required>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-[#10367D] mb-1.5">Email Mahasiswa *</label>
+                    <input type="email" value="{{ Auth::user()->email ?? '' }}" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#10367D] focus:border-[#10367D]" required>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-[#10367D] mb-1.5">Pilih Dosen *</label>
+                    <select class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-[#10367D] focus:border-[#10367D]" required>
+                        <option value="">-- Pilih Dosen Pembimbing --</option>
+                        <option value="dosen1">Dr. Budi Susanto, M.Kom</option>
+                        <option value="dosen2">Siti Aminah, S.Kom., M.T.</option>
+                        <option value="dosen3">Ahmad Reza, Ph.D</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-[#10367D] mb-1.5">Catatan (Opsional)</label>
+                    <textarea rows="2" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#10367D] focus:border-[#10367D]" placeholder="Alasan mengapa Anda cocok di posisi ini..."></textarea>
+                </div>
+                
+                <div class="flex items-center justify-between pt-2 gap-3">
+                    <button type="button" onclick="closeModal()" class="w-1/2 py-2.5 text-sm font-bold text-[#10367D] bg-white border-2 border-[#10367D] rounded-xl hover:bg-gray-50 transition">
+                        Batal
+                    </button>
+                    <button type="submit" class="w-1/2 py-2.5 text-sm font-bold text-white bg-[#10367D] rounded-xl hover:opacity-90 transition shadow-md">
+                        Kirim Permohonan
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div id="modalSuccessState" class="hidden p-8 text-center pb-12">
+            <div class="w-20 h-20 mx-auto bg-[#4ADE80] rounded-full flex items-center justify-center mb-6 mt-4 shadow-sm">
+                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            
+            <h3 class="text-2xl font-extrabold text-[#4ADE80] mb-2 tracking-tight">Permintaan Terkirim</h3>
+            <p class="text-gray-500 text-sm px-4">Dosen akan segera meninjau permintaan Anda.</p>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const modal = document.getElementById('rekomendasiModal');
+    const formState = document.getElementById('modalFormState');
+    const successState = document.getElementById('modalSuccessState');
+
+    function openModal() {
+        modal.classList.remove('hidden');
+        formState.classList.remove('hidden');
+        successState.classList.add('hidden');
+        document.body.style.overflow = 'hidden'; 
+    }
+
+    function closeModal() {
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+
+    function submitRekomendasi(e) {
+        e.preventDefault(); 
+        formState.classList.add('hidden');
+        successState.classList.remove('hidden');
+
+        setTimeout(() => {
+            closeModal();
+        }, 3000); 
+    }
+</script>
 @endsection

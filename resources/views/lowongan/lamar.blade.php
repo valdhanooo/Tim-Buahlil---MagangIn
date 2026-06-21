@@ -23,7 +23,7 @@
     </section>
 
     <section class="max-w-3xl mx-auto px-6 md:px-0 pt-10 relative z-10">
-        
+        <!-- Progress Bar (Tetap Sama) -->
         <div class="flex items-center justify-center mb-12">
             <div class="w-12 h-12 rounded-full bg-[#4ADE80] border-[5px] border-white shadow-sm flex items-center justify-center z-10">
                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
@@ -43,6 +43,7 @@
         <form id="form-lamaran" action="{{ route('lamar.submit', $job['id']) }}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-6">
             @csrf
 
+            <!-- Form Data Diri -->
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 md:p-10">
                 <h2 class="text-xl font-extrabold text-[#10367D] mb-6">Data Diri</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -65,13 +66,14 @@
                 </div>
             </div>
 
+            <!-- Form Dokumen -->
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 md:p-10">
                 <h2 class="text-xl font-extrabold text-[#10367D] mb-6">Dokumen</h2>
                 <div class="mb-8">
                     <label class="block text-[13px] font-bold text-gray-900 mb-2">Curriculum Vitae (CV)</label>
                     <label for="file-cv" class="border-2 border-dashed border-gray-300 rounded-xl p-10 flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 transition w-full bg-[#F9FAFB]/50">
                         <svg class="w-7 h-7 text-gray-400 mb-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-                        <p class="text-[14px] text-gray-800 font-medium text-center" id="text-cv">Seret file ke sini atau <span class="text-[#10367D] font-bold">pilih file</span></p>
+                        <p class="text-[14px] text-gray-800 font-medium text-center" id="text-cv">Klik di sini untuk <span class="text-[#10367D] font-bold">pilih file CV</span></p>
                         <p class="text-xs text-gray-400 mt-1.5">Format PDF atau DOCX - Maksimal 5MB</p>
                         <input type="file" name="cv" id="file-cv" class="hidden" accept=".pdf,.docx" onchange="updateFileName(this, 'text-cv')" required>
                     </label>
@@ -80,14 +82,14 @@
                     <label class="block text-[13px] font-bold text-gray-900 mb-2">Portofolio <span class="text-gray-400 font-normal italic">(Opsional)</span></label>
                     <label for="file-portofolio" class="border-2 border-dashed border-gray-300 rounded-xl p-10 flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 transition w-full bg-[#F9FAFB]/50">
                         <svg class="w-7 h-7 text-gray-400 mb-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-                        <p class="text-[14px] text-gray-800 font-medium text-center" id="text-portofolio">Seret file ke sini atau <span class="text-[#10367D] font-bold">pilih file</span></p>
+                        <p class="text-[14px] text-gray-800 font-medium text-center" id="text-portofolio">Klik di sini untuk <span class="text-[#10367D] font-bold">pilih file Portofolio</span></p>
                         <p class="text-xs text-gray-400 mt-1.5">Format PDF atau DOCX - Maksimal 5MB</p>
-                        <!-- Portofolio dibiarkan tanpa required karena opsional -->
                         <input type="file" name="portofolio" id="file-portofolio" class="hidden" accept=".pdf,.docx" onchange="updateFileName(this, 'text-portofolio')">
                     </label>
                 </div>
             </div>
 
+            <!-- Form Sinkronisasi -->
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 md:p-10">
                 <h2 class="text-xl font-extrabold text-[#10367D] mb-1">Sinkronkan Jadwal Kuliahmu</h2>
                 <p class="text-[13px] text-gray-400 mb-6">Biar kami rekomendasikan magang yang nggak bentrok sama kuliah</p>
@@ -117,6 +119,7 @@
                 </div>
             </div>
 
+            <!-- Form Rekomendasi -->
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 md:p-10">
                 <h2 class="text-xl font-extrabold text-[#10367D] mb-6">Surat rekomendasi Dosen</h2>
                 <div class="space-y-4">
@@ -131,6 +134,7 @@
                 </div>
             </div>
 
+            <!-- Tombol Submit Form (Memicu Modal) -->
             <div class="flex justify-center mt-6">
                 <button type="button" onclick="openModal()" class="w-full md:w-[400px] bg-[#7EB6D9] text-white font-extrabold py-4 px-6 rounded-xl hover:bg-[#68A1C5] transition shadow-md text-[15px]">
                     Kirim Lamaran
@@ -139,30 +143,23 @@
         </form>
     </section>
     
+    <!-- Panggil Modal SATU KALI SAJA -->
     @include('partials.modal-lamar')
 
 </div> 
 
 @push('scripts')
     <script>
-        window.lamaranConfig = {
-            redirectUrl: "{{ route('lowongan.katalog') }}"
-        };
-
-        // Fungsi ajaib untuk mengubah teks saat file berhasil dipilih
+        // Fungsi merubah text file upload biar kelihatan kalau file udah masuk
         function updateFileName(input, textId) {
             const textElement = document.getElementById(textId);
-            
-            // Cek apakah ada file yang dipilih
             if (input.files && input.files.length > 0) {
-                // Ambil nama filenya dan ubah warnanya jadi hijau
                 const fileName = input.files[0].name;
-                textElement.innerHTML = `<span class="text-[#10367D] font-bold">File terpilih:</span> ${fileName}`;
+                textElement.innerHTML = `<span class="text-green-600 font-bold">✔ Terpilih:</span> <span class="text-gray-800">${fileName}</span>`;
             } else {
-                // Kalau batal milih, kembalikan ke teks semula
-                textElement.innerHTML = 'Seret file ke sini atau <span class="text-[#10367D] font-bold">pilih file</span>';
+                textElement.innerHTML = 'Klik di sini untuk <span class="text-[#10367D] font-bold">pilih file</span>';
             }
         }
     </script>
-    <script src="{{ asset('js/main.js') }}"></script>
 @endpush
+@endsection

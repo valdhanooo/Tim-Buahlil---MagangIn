@@ -3,7 +3,7 @@
         
         <!-- Logo + Teks MagangIn -->
         <a href="{{ route('landing') }}" class="flex items-center space-x-3">
-            <img src="{{ asset('images/MagangIn.png') }}" alt="Logo" class="w-10 h-10 object-contain rounded-xl">
+            <img src="{{ asset('images/magangin.png') }}" alt="Logo" class="w-10 h-10 object-contain rounded-xl">
             <span class="text-2xl font-extrabold text-white tracking-tight">MagangIn</span>
         </a>
 

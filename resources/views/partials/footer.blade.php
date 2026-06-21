@@ -5,7 +5,7 @@
             
             <div class="max-w-md">
                 <div class="mb-5 flex items-center space-x-3">
-                    <img src="{{ asset('images/MagangIn.png') }}" alt="Logo" class="w-10 h-10 object-contain rounded-xl">
+                    <img src="{{ asset('images/magangin.png') }}" alt="Logo" class="w-10 h-10 object-contain rounded-xl">
                     <span class="text-2xl font-extrabold text-white tracking-tight">MagangIn</span>
                 </div>
                 <p class="text-white text-[13px] leading-relaxed font-medium opacity-90 pr-4">

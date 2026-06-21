@@ -7,14 +7,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Auth\LoginWithGoogleController;
 
-$dummyLowongan = collect([
-    ['id' => 1, 'posisi' => 'UI/UX Designer Intern', 'perusahaan' => 'TECHCORP INDONESIA', 'fleksibilitas' => 'Fleksibel', 'tipe_magang' => 'Remote', 'lokasi_detail' => 'Remote', 'deadline' => '30/06/2026', 'jurusan' => ['Sistem Informasi', 'Teknik Informatika', 'DKV'], 'deskripsi' => 'Kami mencari desainer yang bisa merancang antarmuka ramah pengguna (UI) dan alur pengalaman (UX) yang logis. Kamu akan berkolaborasi dengan tim produk.'],
-    ['id' => 2, 'posisi' => 'Frontend Developer', 'perusahaan' => 'STARTUPID', 'fleksibilitas' => 'Part-time', 'tipe_magang' => 'Hybrid', 'lokasi_detail' => 'Hybrid - Jakarta', 'deadline' => '15/07/2026', 'jurusan' => ['Teknik Informatika', 'Sistem Informasi'], 'deskripsi' => 'Dibutuhkan mahasiswa yang menguasai dasar-dasar HTML, CSS, JavaScript, dan framework Tailwind CSS.'],
-    ['id' => 3, 'posisi' => 'Data Analyst Intern', 'perusahaan' => 'DATAMIND ANALYTICS', 'fleksibilitas' => 'Weekend', 'tipe_magang' => 'Onsite', 'lokasi_detail' => 'Onsite - Bandung', 'deadline' => '10/07/2026', 'jurusan' => ['Sistem Informasi', 'Teknik Informatika', 'Matematika'], 'deskripsi' => 'Tugasmu adalah menganalisis data pasar dan membuat visualisasi dashboard interaktif menggunakan tools.'],
-    ['id' => 4, 'posisi' => 'Backend Laravel 12', 'perusahaan' => 'SISTEM INOVASI', 'fleksibilitas' => 'Full-time', 'tipe_magang' => 'Remote', 'lokasi_detail' => 'Remote', 'deadline' => '25/08/2026', 'jurusan' => ['Teknik Informatika', 'Sistem Informasi'], 'deskripsi' => 'Fokus pada arsitektur database relasional dan pembuatan API yang efisien.'],
-    ['id' => 5, 'posisi' => 'Marketing Intern', 'perusahaan' => 'CREATIVE HUB', 'fleksibilitas' => 'Full-time', 'tipe_magang' => 'Onsite', 'lokasi_detail' => 'Onsite - Tangerang', 'deadline' => '01/07/2026', 'jurusan' => ['Manajemen', 'Ilmu Komunikasi'], 'deskripsi' => 'Membantu merancang kampanye sosial media (Instagram/TikTok), riset tren mahasiswa terbaru.'],
-    ['id' => 6, 'posisi' => 'Product Manager Intern', 'perusahaan' => 'INNOVA TECH', 'fleksibilitas' => 'Fleksibel', 'tipe_magang' => 'Hybrid', 'lokasi_detail' => 'Hybrid - Jakarta', 'deadline' => '20/07/2026', 'jurusan' => ['Sistem Informasi', 'Manajemen'], 'deskripsi' => 'Menjembatani komunikasi antara tim bisnis dan tim developer. Mampu menulis PRD.'],
-]);
+function getDummyLowongan() {
+    return collect([
+        ['id' => 1, 'posisi' => 'UI/UX Designer Intern', 'perusahaan' => 'TECHCORP INDONESIA', 'fleksibilitas' => 'Fleksibel', 'tipe_magang' => 'Remote', 'lokasi_detail' => 'Remote', 'deadline' => '30/06/2026', 'jurusan' => ['Sistem Informasi', 'Teknik Informatika', 'DKV'], 'deskripsi' => 'Kami mencari desainer yang bisa merancang antarmuka ramah pengguna (UI) dan alur pengalaman (UX) yang logis. Kamu akan berkolaborasi dengan tim produk.'],
+        ['id' => 2, 'posisi' => 'Frontend Developer', 'perusahaan' => 'STARTUPID', 'fleksibilitas' => 'Part-time', 'tipe_magang' => 'Hybrid', 'lokasi_detail' => 'Hybrid - Jakarta', 'deadline' => '15/07/2026', 'jurusan' => ['Teknik Informatika', 'Sistem Informasi'], 'deskripsi' => 'Dibutuhkan mahasiswa yang menguasai dasar-dasar HTML, CSS, JavaScript, dan framework Tailwind CSS.'],
+        ['id' => 3, 'posisi' => 'Data Analyst Intern', 'perusahaan' => 'DATAMIND ANALYTICS', 'fleksibilitas' => 'Weekend', 'tipe_magang' => 'Onsite', 'lokasi_detail' => 'Onsite - Bandung', 'deadline' => '10/07/2026', 'jurusan' => ['Sistem Informasi', 'Teknik Informatika', 'Matematika'], 'deskripsi' => 'Tugasmu adalah menganalisis data pasar dan membuat visualisasi dashboard interaktif menggunakan tools.'],
+        ['id' => 4, 'posisi' => 'Backend Laravel 12', 'perusahaan' => 'SISTEM INOVASI', 'fleksibilitas' => 'Full-time', 'tipe_magang' => 'Remote', 'lokasi_detail' => 'Remote', 'deadline' => '25/08/2026', 'jurusan' => ['Teknik Informatika', 'Sistem Informasi'], 'deskripsi' => 'Fokus pada arsitektur database relasional dan pembuatan API yang efisien.'],
+        ['id' => 5, 'posisi' => 'Marketing Intern', 'perusahaan' => 'CREATIVE HUB', 'fleksibilitas' => 'Full-time', 'tipe_magang' => 'Onsite', 'lokasi_detail' => 'Onsite - Tangerang', 'deadline' => '01/07/2026', 'jurusan' => ['Manajemen', 'Ilmu Komunikasi'], 'deskripsi' => 'Membantu merancang kampanye sosial media (Instagram/TikTok), riset tren mahasiswa terbaru.'],
+        ['id' => 6, 'posisi' => 'Product Manager Intern', 'perusahaan' => 'INNOVA TECH', 'fleksibilitas' => 'Fleksibel', 'tipe_magang' => 'Hybrid', 'lokasi_detail' => 'Hybrid - Jakarta', 'deadline' => '20/07/2026', 'jurusan' => ['Sistem Informasi', 'Manajemen'], 'deskripsi' => 'Menjembatani komunikasi antara tim bisnis dan tim developer. Mampu menulis PRD.'],
+    ]);
+}
 
 Route::get('/', [PageController::class, 'landing'])->name('landing');
 
@@ -22,8 +24,8 @@ Route::get('/tentang', function () {
     return view('tentang'); 
 });
 
-Route::get('/lowongan', function (Request $request) use ($dummyLowongan) {
-    $semuaLowongan = $dummyLowongan;
+Route::get('/lowongan', function (Request $request) {
+    $semuaLowongan = getDummyLowongan();
 
     $keyword = $request->input('cari');
     $filterFleksibilitas = $request->input('fleksibilitas');
@@ -59,20 +61,20 @@ Route::get('/lowongan', function (Request $request) use ($dummyLowongan) {
 Route::get('auth/google', [LoginWithGoogleController::class, 'redirectToGoogle'])->name('google.redirect');
 Route::get('auth/google/callback', [LoginWithGoogleController::class, 'handleGoogleCallback'])->name('google.callback');
 
-Route::middleware('auth')->group(function () use ($dummyLowongan) {
+Route::middleware('auth')->group(function () {
     
     Route::get('/status', function () { 
         return view('status'); 
     })->name('status');
 
-    Route::get('/lowongan/{id}', function ($id) use ($dummyLowongan) {
-        $job = $dummyLowongan->firstWhere('id', (int)$id);
+    Route::get('/lowongan/{id}', function ($id) {
+        $job = getDummyLowongan()->firstWhere('id', (int)$id);
         if (!$job) abort(404);
         return view('lowongan.detail', ['job' => $job]);
     })->name('lowongan.detail');
 
-    Route::get('/lowongan/{id}/lamar', function ($id) use ($dummyLowongan) {
-        $job = $dummyLowongan->firstWhere('id', (int)$id);
+    Route::get('/lowongan/{id}/lamar', function ($id) {
+        $job = getDummyLowongan()->firstWhere('id', (int)$id);
         if (!$job) abort(404);
         return view('lowongan.lamar', ['job' => $job]);
     })->name('lowongan.lamar');

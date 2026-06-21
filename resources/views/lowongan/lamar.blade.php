@@ -148,7 +148,21 @@
         window.lamaranConfig = {
             redirectUrl: "{{ route('lowongan.katalog') }}"
         };
+
+        // Fungsi ajaib untuk mengubah teks saat file berhasil dipilih
+        function updateFileName(input, textId) {
+            const textElement = document.getElementById(textId);
+            
+            // Cek apakah ada file yang dipilih
+            if (input.files && input.files.length > 0) {
+                // Ambil nama filenya dan ubah warnanya jadi hijau
+                const fileName = input.files[0].name;
+                textElement.innerHTML = `<span class="text-[#10367D] font-bold">File terpilih:</span> ${fileName}`;
+            } else {
+                // Kalau batal milih, kembalikan ke teks semula
+                textElement.innerHTML = 'Seret file ke sini atau <span class="text-[#10367D] font-bold">pilih file</span>';
+            }
+        }
     </script>
     <script src="{{ asset('js/main.js') }}"></script>
 @endpush
-@endsection

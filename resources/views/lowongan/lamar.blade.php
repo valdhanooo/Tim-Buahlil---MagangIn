@@ -134,55 +134,61 @@
                 </div>
             </div>
 
-            <!-- Tombol Submit Form (Memicu Modal) -->
-            <div class="flex justify-center mt-6">
-                <button type="button" onclick="openModal()" class="w-full md:w-[400px] bg-[#7EB6D9] text-white font-extrabold py-4 px-6 rounded-xl hover:bg-[#68A1C5] transition shadow-md text-[15px]">
-                    Kirim Lamaran
+            <div class="flex justify-center mt-6 relative z-50">
+                <button type="button" onclick="tutupModal()" class="flex-1 bg-white text-gray-700 font-bold py-3.5 px-4 border border-gray-300 rounded-xl hover:bg-gray-50 transition">
+                    Cek Lagi
+                </button>
+
+                <button type="button" onclick="gasSubmit(this)" class="flex-1 bg-[#7EB6D9] text-white font-extrabold py-3.5 px-4 rounded-xl hover:bg-[#68A1C5] shadow-md transition">
+                    Ya, Kirim Sekarang
                 </button>
             </div>
         </form>
     </section>
     
-    <!-- Panggil Modal SATU KALI SAJA -->
     @include('partials.modal-lamar')
 
 </div> 
-
 @push('scripts')
     <script>
-        function openModal() {
-    const modal = document.getElementById('rekomendasiModal');
-    const formState = document.getElementById('modalFormState');
-    const successState = document.getElementById('modalSuccessState');
+        function updateFileName(input, textId) {
+            const textElement = document.getElementById(textId);
+            if (input.files && input.files.length > 0) {
+                const fileName = input.files[0].name;
+                textElement.innerHTML = `<span class="text-green-600 font-bold">✔ Terpilih:</span> <span class="text-gray-800">${fileName}</span>`;
+            } else {
+                textElement.innerHTML = 'Klik di sini untuk <span class="text-[#10367D] font-bold">pilih file</span>';
+            }
+        }
 
-    if (modal) modal.classList.remove('hidden');
-    if (formState) formState.classList.remove('hidden');
-    if (successState) successState.classList.add('hidden');
-    
-    document.body.style.overflow = 'hidden'; 
-}
+        document.addEventListener('DOMContentLoaded', function() {
+            const btnBuka = document.getElementById('btn-buka-modal');
+            const modal = document.getElementById('modal-lamaran');
+            const formLamar = document.getElementById('form-lamaran');
 
-function closeModal() {
-    const modal = document.getElementById('rekomendasiModal');
-    if (modal) modal.classList.add('hidden');
-    
-    document.body.style.overflow = 'auto';
-}
+            // Buka Modal
+            btnBuka.addEventListener('click', function() {
+                if (formLamar.checkValidity()) {
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    formLamar.reportValidity();
+                }
+            });
 
-function submitRekomendasi(e) {
-    e.preventDefault(); 
-    
-    const formState = document.getElementById('modalFormState');
-    const successState = document.getElementById('modalSuccessState');
+            window.tutupModal = function() {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = 'auto';
+            };
 
-    if (formState) formState.classList.add('hidden');
-    if (successState) successState.classList.remove('hidden');
-
-    // Menutup modal otomatis setelah 3 detik
-    setTimeout(() => {
-        closeModal();
-    }, 3000); 
-}
+            window.gasSubmit = function(btn) {
+                btn.innerHTML = 'Mengirim...';
+                btn.disabled = true;
+                formLamar.submit();
+            };
+        });
     </script>
 @endpush
 @endsection

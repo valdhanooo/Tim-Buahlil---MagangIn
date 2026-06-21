@@ -138,10 +138,12 @@
             </div>
         </form>
     </section>
+    
     @include('partials.modal-lamar')
-@include('partials.modal-lamar')
 
-</div> @push('scripts')
+</div> 
+
+@push('scripts')
     <script>
         window.lamaranConfig = {
             redirectUrl: "{{ route('lowongan.katalog') }}"

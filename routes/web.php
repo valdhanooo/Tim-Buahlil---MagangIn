@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Auth\LoginWithGoogleController;
 
 function getDummyLowongan() {
     return collect([
@@ -57,6 +58,8 @@ Route::get('/lowongan', function (Request $request) {
     ]);
 })->name('lowongan.katalog');
 
+Route::get('auth/google', [LoginWithGoogleController::class, 'redirectToGoogle'])->name('google.redirect');
+Route::get('auth/google/callback', [LoginWithGoogleController::class, 'handleGoogleCallback'])->name('google.callback');
 
 Route::middleware('auth')->group(function () {
     
@@ -77,7 +80,7 @@ Route::middleware('auth')->group(function () {
     })->name('lowongan.lamar');
 
     Route::post('/lowongan/{id}/lamar', function ($id) { 
-        return redirect()->route('dashboard')->with('success', 'Lamaran berhasil dikirim!'); 
+        return redirect()->route('status')->with('success', 'Lamaran berhasil dikirim!'); 
     })->name('lamar.submit');
 
     Route::get('/profil', function () { 

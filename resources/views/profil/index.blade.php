@@ -43,22 +43,25 @@
                     <p class="text-[11px] text-gray-500 mt-1">{{ Auth::user()->email }}</p>
                 </div>
 
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col">
-                    <a href="{{ route('profil') }}" class="flex items-center px-6 py-4 border-b border-gray-200">
-                        <svg class="w-5 h-5 text-[#10367D] mr-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col overflow-hidden">
+                    <a href="{{ route('profil') }}" class="flex items-center px-6 py-4 border-b border-gray-200 bg-blue-50/30 border-l-4 border-l-[#10367D]">
+                        <svg class="w-5 h-5 text-[#10367D] mr-4 -ml-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                         <span class="font-bold text-[#10367D] text-sm">Data Diri</span>
                     </a>
+                    
                     <a href="{{ route('profil.keamanan') }}" class="flex items-center px-6 py-4 border-b border-gray-200 hover:bg-gray-50 transition">
                         <svg class="w-5 h-5 text-gray-400 mr-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                         <span class="font-medium text-gray-600 text-sm">keamanan & Password</span>
                     </a>
-                    <a href="#" class="flex items-center px-6 py-4 border-b border-gray-200 hover:bg-gray-50 transition">
+                    
+                    <a href="{{ route('profil.riwayat') }}" class="flex items-center px-6 py-4 border-b border-gray-200 hover:bg-gray-50 transition">
                         <svg class="w-5 h-5 text-gray-400 mr-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                         <span class="font-medium text-gray-600 text-sm">Riwayat Lamaran</span>
                     </a>
+                    
                     <form method="POST" action="{{ route('logout') }}" class="m-0">
                         @csrf
-                        <button type="submit" class="w-full flex items-center px-6 py-4 hover:bg-red-50 transition text-left cursor-pointer rounded-b-2xl">
+                        <button type="submit" class="w-full flex items-center px-6 py-4 hover:bg-red-50 transition text-left cursor-pointer">
                             <svg class="w-5 h-5 text-[#E11D48] mr-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                             <span class="font-medium text-[#E11D48] text-sm">Keluar</span>
                         </button>
@@ -116,17 +119,7 @@
         </div>
     </section>
 </div>
-
-<script>
-    function previewImage(event) {
-        const reader = new FileReader();
-        reader.onload = function() {
-            const output = document.getElementById('profilePreview');
-            output.src = reader.result;
-        };
-        if(event.target.files[0]) {
-            reader.readAsDataURL(event.target.files[0]);
-        }
-    }
-</script>
+@push('scripts')
+    <script src="{{ asset('js/profil.js') }}"></script>
+@endpush
 @endsection

@@ -9,7 +9,7 @@
                 Daftar Lowongan Magang
             </h1>
             <p class="text-blue-100 text-lg mb-6">
-                Temukan magang yang paling sesuai dengan jurusan, jadwal dan minatmu
+                Temukan Magang Sesuai Jadwal Kuliahmu
             </p>
             
             <form action="{{ route('lowongan.katalog') }}" method="GET" class="relative max-w-2xl">
@@ -102,7 +102,13 @@
                         <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition flex flex-col justify-between">
                             <div>
                                 <div class="flex items-center space-x-4 mb-5">
-                                    <img src="https://i.pravatar.cc/150?img={{ $job['id'] * 5 }}" alt="Avatar" class="w-12 h-12 rounded-full border-2 border-gray-200">
+                                    
+                                    @php
+                                        // Modulo ID dengan 3, hasilnya ditambah 1 (jadi 1, 2, atau 3)
+                                        $idGambar = ($job['id'] % 3) + 1;
+                                    @endphp
+                                    <img src="{{ asset('images/' . $idGambar . '.png') }}" alt="Avatar" class="w-12 h-12 rounded-full border-2 border-gray-200 object-cover bg-gray-50">
+                                    
                                     <div>
                                         <h3 class="font-bold text-gray-900 leading-tight text-sm">{{ $job['posisi'] }}</h3>
                                         <p class="text-[10px] text-gray-500 mt-1 uppercase tracking-wider">{{ $job['perusahaan'] }}</p>

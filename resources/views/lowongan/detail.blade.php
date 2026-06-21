@@ -6,7 +6,10 @@
 <section class="pt-12 pb-16 px-6 md:px-12" style="background: linear-gradient(to right, #10367D, #4A88C9);">
     <div class="w-full max-w-6xl mx-auto flex items-center space-x-6">
         <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center p-1.5 shadow-lg flex-shrink-0">
-            <img src="https://i.pravatar.cc/150?img={{ $job['id'] * 5 }}" alt="Logo" class="w-full h-full rounded-full object-cover">
+            @php
+                $idGambar = ($job['id'] % 3) + 1;
+            @endphp
+            <img src="{{ asset('images/' . $idGambar . '.png') }}" alt="Logo Perusahaan" class="w-16 h-16 rounded-full object-cover border-2 border-gray-200">
         </div>
         <div>
             <h1 class="text-3xl md:text-4xl font-bold text-white mb-2 tracking-tight">{{ $job['posisi'] }}</h1>
@@ -198,31 +201,7 @@
     </div>
 </div>
 
-<script>
-    const modal = document.getElementById('rekomendasiModal');
-    const formState = document.getElementById('modalFormState');
-    const successState = document.getElementById('modalSuccessState');
-
-    function openModal() {
-        modal.classList.remove('hidden');
-        formState.classList.remove('hidden');
-        successState.classList.add('hidden');
-        document.body.style.overflow = 'hidden'; 
-    }
-
-    function closeModal() {
-        modal.classList.add('hidden');
-        document.body.style.overflow = 'auto';
-    }
-
-    function submitRekomendasi(e) {
-        e.preventDefault(); 
-        formState.classList.add('hidden');
-        successState.classList.remove('hidden');
-
-        setTimeout(() => {
-            closeModal();
-        }, 3000); 
-    }
-</script>
+@push('scripts')
+    <script src="{{ asset('js/main.js') }}"></script>
+@endpush
 @endsection

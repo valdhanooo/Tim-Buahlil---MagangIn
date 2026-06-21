@@ -23,7 +23,6 @@ Route::get('/tentang', function () {
     return view('tentang'); 
 });
 
-// KATALOG LOWONGAN
 Route::get('/lowongan', function (Request $request) {
     $semuaLowongan = getDummyLowongan();
 
@@ -61,18 +60,16 @@ Route::get('/lowongan', function (Request $request) {
 
 Route::middleware('auth')->group(function () {
     
-    Route::get('/dashboard', function () { 
-        return view('dashboard'); 
-    })->name('dashboard');
+    Route::get('/status', function () { 
+        return view('status'); 
+    })->name('status');
 
-    // DETAIL LOWONGAN
     Route::get('/lowongan/{id}', function ($id) {
         $job = getDummyLowongan()->firstWhere('id', (int)$id);
         if (!$job) abort(404);
         return view('lowongan.detail', ['job' => $job]);
     })->name('lowongan.detail');
 
-    // FORM LAMARAN
     Route::get('/lowongan/{id}/lamar', function ($id) {
         $job = getDummyLowongan()->firstWhere('id', (int)$id);
         if (!$job) abort(404);
@@ -83,36 +80,28 @@ Route::middleware('auth')->group(function () {
         return redirect()->route('dashboard')->with('success', 'Lamaran berhasil dikirim!'); 
     })->name('lamar.submit');
 
-    // PROFIL SAYA (Data Diri)
     Route::get('/profil', function () { 
         return view('profil.index'); 
     })->name('profil');
 
-    // PROSES SIMPAN PERUBAHAN PROFIL & FOTO KE DATABASE
     Route::post('/profil', function (Request $request) {
         $request->validate([
             'name' => 'required|string|max:255',
-            // Kita pakai validasi 'fotoProfil' sesuai form
             'fotoProfil' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', 
         ]);
 
         $user = Auth::user();
         $user->name = $request->name;
 
-        // INI BAGIAN YANG DIPERBAIKI: Langsung simpan ke Database!
         if ($request->hasFile('fotoProfil')) {
             $file = $request->file('fotoProfil');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/profiles'), $filename);
-            
-            // Masukkan alamat teks ke kolom fotoProfil di MySQL
+            $file->move(public_path('uploads/profiles'), $filename);            
             $user->fotoProfil = 'uploads/profiles/' . $filename;
         }
 
-        // Save seluruh data ke database (Name dan fotoProfil)
         $user->save();
 
-        // Data tambahan MVP tetap di session
         session([
             'telepon' => $request->telepon,
             'semester' => $request->semester,
@@ -123,7 +112,6 @@ Route::middleware('auth')->group(function () {
         return redirect()->back()->with('success', 'Profil dan foto berhasil disimpan permanen!');
     })->name('profil.update');
 
-    // KEAMANAN & PASSWORD
     Route::get('/profil/keamanan', function () { 
         return view('profil.keamanan'); 
     })->name('profil.keamanan');
@@ -140,6 +128,10 @@ Route::middleware('auth')->group(function () {
 
         return redirect()->back()->with('success', 'Password berhasil diperbarui!');
     })->name('profil.password.update');
+
+    Route::get('/profil/riwayat', function () { 
+        return view('profil.riwayat'); 
+    })->name('profil.riwayat');
 });
 
 require __DIR__.'/auth.php';

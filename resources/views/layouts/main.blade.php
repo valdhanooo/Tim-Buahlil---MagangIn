@@ -6,6 +6,7 @@
     <title>@yield('title', 'MagangIn')</title>
     @vite('resources/css/app.css')
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #F8FAFC; }
     </style>
@@ -19,6 +20,6 @@
     </main>
 
     @include('partials.footer')
-
+    @stack('scripts')
 </body>
 </html>

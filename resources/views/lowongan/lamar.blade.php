@@ -12,7 +12,7 @@
             
             <div class="inline-flex items-center bg-white/20 backdrop-blur-sm border border-white/30 rounded-full py-2.5 px-5 shadow-sm">
                 @php
-                    $avatarSrc = Auth::user()->fotoProfil ? asset(Auth::user()->fotoProfil) : asset('images/default-pp.png');
+                    $avatarSrc = Auth::user()->fotoProfil ? asset(Auth::user()->fotoProfil) : asset('images/user.png');
                 @endphp
                 <img src="{{ $avatarSrc }}" alt="User Avatar" class="w-7 h-7 rounded-full object-cover mr-3 border border-white/50">
                 <span class="text-white text-[13px] font-medium tracking-wide">
@@ -23,18 +23,15 @@
     </section>
 
     <section class="max-w-3xl mx-auto px-6 md:px-0 pt-10 relative z-10">
-        <!-- Progress Bar (Tetap Sama) -->
         <div class="flex items-center justify-center mb-12">
             <div class="w-12 h-12 rounded-full bg-[#4ADE80] border-[5px] border-white shadow-sm flex items-center justify-center z-10">
                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
             </div>
             <div class="w-20 md:w-32 h-[3px] bg-[#4ADE80] -ml-2 -mr-2"></div>
-            
             <div class="w-12 h-12 rounded-full bg-[#10367D] border-[5px] border-white shadow-sm flex items-center justify-center z-10">
                 <span class="text-white font-extrabold text-lg">2</span>
             </div>
             <div class="w-20 md:w-32 h-[3px] bg-gray-300 -ml-2 -mr-2"></div>
-            
             <div class="w-12 h-12 rounded-full bg-gray-500 border-[5px] border-white shadow-sm flex items-center justify-center z-10">
                 <span class="text-white font-extrabold text-lg">3</span>
             </div>
@@ -43,7 +40,6 @@
         <form id="form-lamaran" action="{{ route('lamar.submit', $job['id']) }}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-6">
             @csrf
 
-            <!-- Form Data Diri -->
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 md:p-10">
                 <h2 class="text-xl font-extrabold text-[#10367D] mb-6">Data Diri</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -66,7 +62,6 @@
                 </div>
             </div>
 
-            <!-- Form Dokumen -->
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 md:p-10">
                 <h2 class="text-xl font-extrabold text-[#10367D] mb-6">Dokumen</h2>
                 <div class="mb-8">
@@ -89,7 +84,6 @@
                 </div>
             </div>
 
-            <!-- Form Sinkronisasi -->
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 md:p-10">
                 <h2 class="text-xl font-extrabold text-[#10367D] mb-1">Sinkronkan Jadwal Kuliahmu</h2>
                 <p class="text-[13px] text-gray-400 mb-6">Biar kami rekomendasikan magang yang nggak bentrok sama kuliah</p>
@@ -119,7 +113,6 @@
                 </div>
             </div>
 
-            <!-- Form Rekomendasi -->
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 md:p-10">
                 <h2 class="text-xl font-extrabold text-[#10367D] mb-6">Surat rekomendasi Dosen</h2>
                 <div class="space-y-4">
@@ -135,60 +128,101 @@
             </div>
 
             <div class="flex justify-center mt-6 relative z-50">
-                <button type="button" onclick="tutupModal()" class="flex-1 bg-white text-gray-700 font-bold py-3.5 px-4 border border-gray-300 rounded-xl hover:bg-gray-50 transition">
-                    Cek Lagi
-                </button>
-
-                <button type="button" onclick="gasSubmit(this)" class="flex-1 bg-[#7EB6D9] text-white font-extrabold py-3.5 px-4 rounded-xl hover:bg-[#68A1C5] shadow-md transition">
-                    Ya, Kirim Sekarang
+                <button type="button" id="btn-buka-modal" class="w-full md:w-[400px] bg-[#7EB6D9] text-white font-extrabold py-4 px-6 rounded-xl hover:bg-[#68A1C5] transition shadow-md text-[15px] cursor-pointer">
+                    Kirim Lamaran
                 </button>
             </div>
         </form>
     </section>
-    
+
     @include('partials.modal-lamar')
 
-</div> 
+</div>
+
 @push('scripts')
-    <script>
-        function updateFileName(input, textId) {
-            const textElement = document.getElementById(textId);
-            if (input.files && input.files.length > 0) {
-                const fileName = input.files[0].name;
-                textElement.innerHTML = `<span class="text-green-600 font-bold">✔ Terpilih:</span> <span class="text-gray-800">${fileName}</span>`;
-            } else {
-                textElement.innerHTML = 'Klik di sini untuk <span class="text-[#10367D] font-bold">pilih file</span>';
-            }
+<script>
+    function updateFileName(input, textId) {
+        const textElement = document.getElementById(textId);
+        if (input.files && input.files.length > 0) {
+            const fileName = input.files[0].name;
+            textElement.innerHTML = `<span class="text-green-600 font-bold">✔ Terpilih:</span> <span class="text-gray-800">${fileName}</span>`;
+        } else {
+            textElement.innerHTML = 'Klik di sini untuk <span class="text-[#10367D] font-bold">pilih file</span>';
         }
+    }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const btnBuka = document.getElementById('btn-buka-modal');
-            const modal = document.getElementById('modal-lamaran');
-            const formLamar = document.getElementById('form-lamaran');
+    document.addEventListener('DOMContentLoaded', function () {
+        const btnBuka = document.getElementById('btn-buka-modal');
+        const modal = document.getElementById('modalKonfirmasi');
+        const modalBox = document.getElementById('modalBox');
+        const formLamar = document.getElementById('form-lamaran');
 
-            // Buka Modal
-            btnBuka.addEventListener('click', function() {
-                if (formLamar.checkValidity()) {
-                    modal.classList.remove('hidden');
-                    modal.classList.add('flex');
-                    document.body.style.overflow = 'hidden';
-                } else {
-                    formLamar.reportValidity();
-                }
-            });
+        // Buka modal konfirmasi
+        btnBuka.addEventListener('click', function () {
+            if (formLamar.checkValidity()) {
+                // Isi ringkasan data ke modal
+                const cvInput = document.getElementById('file-cv');
+                const portoInput = document.getElementById('file-portofolio');
+                const jadwalInput = document.getElementById('file-jadwal');
+                const rekoVal = document.querySelector('input[name="rekomendasi_dosen"]:checked');
+                const jadwalVal = document.querySelector('input[name="sinkron_jadwal"]:checked');
 
-            window.tutupModal = function() {
+                document.getElementById('modal-cv-val').textContent = cvInput.files.length > 0 ? cvInput.files[0].name : 'Belum ada file';
+                document.getElementById('modal-porto-val').textContent = portoInput.files.length > 0 ? portoInput.files[0].name : 'Tidak dilampirkan';
+                document.getElementById('modal-jadwal-val').textContent = jadwalVal ? jadwalVal.value : '-';
+                document.getElementById('modal-reko-val').textContent = rekoVal ? (rekoVal.value === 'ya' ? 'Ya' : 'Tidak') : '-';
+
+                // Tampilkan modal dengan animasi
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                setTimeout(() => {
+                    modal.classList.remove('opacity-0');
+                    modalBox.classList.remove('scale-95');
+                }, 10);
+                document.body.style.overflow = 'hidden';
+            } else {
+                formLamar.reportValidity();
+            }
+        });
+
+        // Tutup modal
+        window.closeModal = function () {
+            modal.classList.add('opacity-0');
+            modalBox.classList.add('scale-95');
+            setTimeout(() => {
                 modal.classList.add('hidden');
                 modal.classList.remove('flex');
-                document.body.style.overflow = 'auto';
-            };
+            }, 300);
+            document.body.style.overflow = 'auto';
+        };
 
-            window.gasSubmit = function(btn) {
-                btn.innerHTML = 'Mengirim...';
-                btn.disabled = true;
-                formLamar.submit();
-            };
-        });
-    </script>
+        // Submit form lalu tampilkan modal sukses
+        window.submitForm = function () {
+            const modalSukses = document.getElementById('modalSukses');
+            const successBox = document.getElementById('successBox');
+
+            // Sembunyikan modal konfirmasi
+            modal.classList.add('opacity-0');
+            modalBox.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+
+                // Tampilkan modal sukses
+                modalSukses.classList.remove('hidden');
+                modalSukses.classList.add('flex');
+                setTimeout(() => {
+                    modalSukses.classList.remove('opacity-0');
+                    successBox.classList.remove('scale-95');
+                }, 10);
+            }, 300);
+        };
+
+        // Redirect setelah sukses
+        window.redirectToLowongan = function () {
+            formLamar.submit();
+        };
+    });
+</script>
 @endpush
 @endsection

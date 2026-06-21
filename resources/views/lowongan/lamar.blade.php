@@ -150,16 +150,39 @@
 
 @push('scripts')
     <script>
-        // Fungsi merubah text file upload biar kelihatan kalau file udah masuk
-        function updateFileName(input, textId) {
-            const textElement = document.getElementById(textId);
-            if (input.files && input.files.length > 0) {
-                const fileName = input.files[0].name;
-                textElement.innerHTML = `<span class="text-green-600 font-bold">✔ Terpilih:</span> <span class="text-gray-800">${fileName}</span>`;
-            } else {
-                textElement.innerHTML = 'Klik di sini untuk <span class="text-[#10367D] font-bold">pilih file</span>';
-            }
-        }
+        function openModal() {
+    const modal = document.getElementById('rekomendasiModal');
+    const formState = document.getElementById('modalFormState');
+    const successState = document.getElementById('modalSuccessState');
+
+    if (modal) modal.classList.remove('hidden');
+    if (formState) formState.classList.remove('hidden');
+    if (successState) successState.classList.add('hidden');
+    
+    document.body.style.overflow = 'hidden'; 
+}
+
+function closeModal() {
+    const modal = document.getElementById('rekomendasiModal');
+    if (modal) modal.classList.add('hidden');
+    
+    document.body.style.overflow = 'auto';
+}
+
+function submitRekomendasi(e) {
+    e.preventDefault(); 
+    
+    const formState = document.getElementById('modalFormState');
+    const successState = document.getElementById('modalSuccessState');
+
+    if (formState) formState.classList.add('hidden');
+    if (successState) successState.classList.remove('hidden');
+
+    // Menutup modal otomatis setelah 3 detik
+    setTimeout(() => {
+        closeModal();
+    }, 3000); 
+}
     </script>
 @endpush
 @endsection

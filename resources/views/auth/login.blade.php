@@ -14,7 +14,7 @@
         <div></div>
 
         <div class="flex flex-col justify-center items-center text-center">
-            <img src="{{ asset('images/MagangIn.png') }}" alt="MagangIn Logo" class="w-36 h-36 mb-6 shadow-md rounded-3xl object-cover">
+            <img src="{{ asset('images/magangin.png') }}" alt="MagangIn Logo" class="w-36 h-36 mb-6 shadow-md rounded-3xl object-cover">
             <h1 class="text-4xl font-bold mb-3 tracking-wide">MagangIn</h1>
             <p class="text-base" style="color: #E2EFF8;">Temukan Peluang Magang Terbaikmu</p>
         </div>
